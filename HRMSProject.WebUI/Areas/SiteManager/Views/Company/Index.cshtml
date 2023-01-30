@@ -1,0 +1,72 @@
+﻿@model IEnumerable<HRMSProject.ViewModels.CompanyVM.CompanySummary>
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Areas/SiteManager/Views/Shared/_Layout.cshtml";
+	string ByteToImage(byte[] arr)
+	{
+		//Convert byte arry to base64string
+		string imreBase64Data = Convert.ToBase64String(arr);
+		string imgDataURL = string.Format("data:image/png;base64,{0}", imreBase64Data);
+		//Passing image data in viewbag to view
+		return imgDataURL;
+	}
+}
+<p>
+	<a class="btn btn-primary" asp-action="Create">Yeni Oluştur</a>
+</p>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				Fotoğraf
+			</th>
+			<th>
+				Şirket Adı
+			</th>
+			<th>
+				Şirket Unvanı
+			</th>
+			<th>
+				E-Mail
+			</th>
+			<th>
+				Telefon
+			</th>
+			<th>
+				Adres
+			</th>
+@*			<th></th>*@
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					<img src="@ByteToImage(item.Photo)" alt="Profil Fotoğrafı" style="width:100px;" />
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.CompanyName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.CompanyTitle)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.EMail)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Phone)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Adress)
+				</td>
+@*				<td>
+					@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+					@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+					@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+				</td>*@
+			</tr>
+		}
+	</tbody>
+</table>

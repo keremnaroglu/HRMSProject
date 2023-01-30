@@ -1,0 +1,36 @@
+﻿@model HRMSProject.ViewModels.ChangePasswordVM.ChangePassword;
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<div class="row">
+	<div class="col-md-4 col-xl-3" style=" margin:0 auto; width:35%;">
+		<div class="card mb-3">
+			<form asp-action="Index" asp-controller="Password" asp-area="CompanyManager" method="post">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+				<div class="card-body">
+					<h5 class="h6 card-title">Şifre Değiştir</h5>
+					<ul class="list-unstyled mb-0">						
+						<li class="mb-1">
+							<label asp-for="CurrentPassword" class="control-label" style="font-weight:bold">Mevcut Şifre :</label>
+							<input asp-for="CurrentPassword" class="form-control" />
+							<span asp-validation-for="CurrentPassword" class="text-danger"></span>
+						</li>
+						<li class="mb-1">
+							<label asp-for="NewPassword" class="control-label" style="font-weight:bold">Yeni Şifre :</label>
+							<input asp-for="NewPassword" class="form-control" />
+							<span asp-validation-for="NewPassword" class="text-danger"></span>
+						</li>
+						<li class="mb-1">
+							<label asp-for="NewPasswordConfirm" class="control-label" style="font-weight:bold">Yeni Şifre Tekrar :</label>
+							<input asp-for="NewPasswordConfirm" class="form-control" />
+							<span asp-validation-for="NewPasswordConfirm" class="text-danger"></span>
+						</li>			
+					</ul>
+					<input type="submit" value="Şifreyi Değiştir" class="btn btn-primary" style="width:80%; margin:10%" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

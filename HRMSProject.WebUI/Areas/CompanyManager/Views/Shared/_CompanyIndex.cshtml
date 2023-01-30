@@ -1,0 +1,42 @@
+﻿@using HRMSProject.ViewModels.CompanyVM
+@model CompanySummary
+@{
+    string ByteToImage(byte[] arr)
+    {
+        //Convert byte arry to base64string
+        string imreBase64Data = Convert.ToBase64String(arr);
+        string imgDataURL = string.Format("data:image/png;base64,{0}", imreBase64Data);
+        //Passing image data in viewbag to view
+        return imgDataURL;
+    }
+}
+@{
+    CompanySummary companySummary = Model;
+}
+
+<div class="row">
+    <div class="col-md-4 col-xl-3" style=" margin:0 auto; width:35%">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Özet Bilgiler</h5>
+            </div>
+            <div class="card-body text-center">
+                <img src="@ByteToImage(companySummary.Photo)" alt="Profil Fotoğrafı" class="img-fluid rounded-circle mb-2" width="128" height="128" />
+                <h5 class="card-title mb-0">@companySummary.CompanyName</h5>
+                <div class="text-muted mb-2">@companySummary.CompanyTitle</div>
+
+            </div>
+            <hr class="my-0" />
+            <div class="card-body">
+                <h5 class="h6 card-title">Hakkında</h5>
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-1"><b>Adres</b><hr class="my-0" />@companySummary.Adress</li>
+                    <li class="mb-1"><b>Departman</b><hr class="my-0" />@companySummary.CompanyName</li>
+                    <li class="mb-1"><b>Telefon</b><hr class="my-0" />@companySummary.Phone</li>
+                    <li class="mb-1"><b>E-Posta</b><hr class="my-0" />@companySummary.EMail</li>
+                </ul>
+                <a asp-area="SiteManager" asp-controller="Home" asp-action="Detail" class="btn btn-primary" style="color:white;text-decoration:none;width:80%; margin:10%">Detaylı Bilgi</a>
+            </div>
+        </div>
+    </div>
+</div>

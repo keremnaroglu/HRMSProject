@@ -1,0 +1,125 @@
+﻿@model HRMSProject.ViewModels.AppUserVM.AppUserDetail;
+
+
+@{
+	ViewData["Title"] = "Anasayfa";
+
+}
+
+@{
+	string ByteToImage(byte[] arr)
+	{
+		//Convert byte arry to base64string
+		string imreBase64Data = Convert.ToBase64String(arr);
+		string imgDataURL = string.Format("data:image/png;base64,{0}", imreBase64Data);
+		//Passing image data in viewbag to view
+		return imgDataURL;
+	}
+}
+
+<script>
+	const importData = () => {
+		let input = document.createElement('input');
+		input.type = 'file';
+		input.accept="image/*"
+		input.onchange = _ => {
+			let files = Array.from(input.files);
+			if(files[0].type.includes("image")){
+				files[0].stream().getReader().read().then(data => {
+					document.body.querySelector(".profile-photo").value = btoa(String.fromCharCode(...new Uint8Array(data.value)));
+					document.body.querySelector(".profile-image").src = "data:image/png;base64," + btoa(String.fromCharCode(...new Uint8Array(data.value)));
+				});
+			}
+		};
+		input.click();
+	}
+</script>
+
+
+<div class="row">
+	<div class="col-md-4 col-xl-3" style=" margin:0 auto; width:35%;">
+		<div class="card mb-3">
+			<form asp-action="Detail" asp-controller="Home" asp-area="CompanyManager" method="post">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+				<div  class="card-header">
+					<h5 class="card-title mb-0">Detay Bilgiler</h5>
+				</div>
+				<div  class="card-body text-center">
+					<img src="@ByteToImage(Model.Photo)" alt="Profil Fotoğrafı" class="img-fluid rounded-circle mb-2 profile-image" width="128" height="128"
+						 onclick=importData() />
+					<h5 class="card-title mb-0">@Model.Name @Model.SecondName @Model.LastName @Model.SecondLastName</h5>
+					<div class="text-muted mb-2">@Model.Profession</div>
+				</div>
+				<hr class="my-0" />
+				<div  class="card-body">
+					<h5 class="h6 card-title">Hakkında</h5>
+					<ul class="list-unstyled mb-0">
+						<li class="mb-1">
+							<input asp-for="Id" class="form-control" hidden readonly />
+							<input asp-for="Name" class="form-control" hidden readonly />
+							<input asp-for="LastName" class="form-control" hidden readonly />
+							<input asp-for="SecondLastName" class="form-control" hidden readonly />
+							<input asp-for="SecondName" class="form-control" hidden readonly />
+							<input asp-for="Profession" class="form-control" hidden readonly />
+							<input asp-for="Photo" class="profile-photo" type="hidden"/>
+						</li>
+						<li class="mb-1">
+							<label asp-for="IdentityNumber" class="control-label" style="font-weight:bold">TC No :</label>
+							<input asp-for="IdentityNumber" class="form-control" readonly style="background-color:rgba(0,0,0,0.1); border:none; pointer-events:none;" />
+							<span asp-validation-for="IdentityNumber" class="text-danger"></span>
+						</li>
+						<li class="mb-1">
+							<label asp-for="BirthDate" class="control-label" style="font-weight:bold">Doğum Tarihi :</label>
+							<input type="date" asp-for="BirthDate" class="form-control" readonly style="background-color:rgba(0,0,0,0.1); border:none; pointer-events:none;"/>
+							<span asp-validation-for="BirthDate" class="text-danger"></span>
+						</li>
+						<li class="mb-1">
+							<label asp-for="BirthPlace" class="control-label" style="font-weight:bold">Doğum Yeri :</label>
+							<input asp-for="BirthPlace" class="form-control" readonly style="background-color:rgba(0,0,0,0.1); border:none; pointer-events:none;" />
+							<span asp-validation-for="BirthPlace" class="text-danger"></span>
+						</li>
+						<li class="mb-1">
+							<label asp-for="Address" class="control-label" style="font-weight:bold">Adres :</label>
+							<textarea maxlength="200" rows="5" asp-for="Address" class="form-control"></textarea>
+							<span asp-validation-for="Address" class="text-danger"></span>
+						</li>
+						<li class="mb-1">
+							<label asp-for="Department" class="control-label" style="font-weight:bold">Departman :</label>
+							<input asp-for="Department" class="form-control" readonly style="background-color:rgba(0,0,0,0.1); border:none; pointer-events:none;" />
+							<span asp-validation-for="Department" class="text-danger"></span>
+						</li>
+						<li class="mb-1">
+							<label asp-for="PhoneNumber" class="control-label" style="font-weight:bold">Telefon :</label>
+							<input asp-for="PhoneNumber" class="form-control" />
+							<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+						</li>
+						<li class="mb-1">
+							<label asp-for="Email" class="control-label" style="font-weight:bold">Email :</label>
+							<input asp-for="Email" class="form-control" readonly style="background-color:rgba(0,0,0,0.1); border:none; pointer-events:none;" />
+							<span asp-validation-for="Email" class="text-danger"></span>
+						</li>
+						<li class="mb-1">
+							<input type="checkbox" asp-for="IsActive" onclick="return false" />
+							<label asp-for="IsActive" class="control-label" style="font-weight:bold">Aktif Çalışan</label>
+							<span asp-validation-for="IsActive" class="text-danger"></span>
+						</li>
+						<li class="mb-1">
+							<label asp-for="RecruitmentDate" class="control-label" style="font-weight:bold">İşe Giriş Tarihi</label>
+							<input type="date" asp-for="RecruitmentDate" class="form-control" readonly style="background-color:rgba(0,0,0,0.1); border:none; pointer-events:none;" />
+							<span asp-validation-for="RecruitmentDate" class="text-danger"></span>
+						</li>
+						<li class="mb-1">
+							<label asp-for="TerminationDate" class="control-label" style="font-weight:bold">İşten Çıkış Tarihi</label>
+							<input type="date" asp-for="TerminationDate" class="form-control" readonly style="background-color:rgba(0,0,0,0.1); border:none; pointer-events:none;" />
+							<span asp-validation-for="TerminationDate" class="text-danger"></span>
+						</li>
+					</ul>
+					<input type="submit" value="Save" class="btn btn-primary" style="width:80%; margin:10%" />
+				</div>
+			</form>
+
+		</div>
+	</div>
+
+
+</div>

@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "apis1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/HRMSProjectWebAPIapi05012023/apis/HRMSProjectWebAPI05012023",
+      "type": "apis.azure"
+    },
+    "mssql1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/hrmsql/databases/HRMSDatabase",
+      "type": "mssql.azure",
+      "connectionId": "HRMSDBConnectıon",
+      "dynamicId": null
+    }
+  }
+}

@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\CompanyManager\Data\**" />
+    <Compile Remove="Areas\CompanyManager\Models\**" />
+    <Compile Remove="Areas\CompanyUser\Data\**" />
+    <Compile Remove="Areas\CompanyUser\Models\**" />
+    <Content Remove="Areas\CompanyManager\Data\**" />
+    <Content Remove="Areas\CompanyManager\Models\**" />
+    <Content Remove="Areas\CompanyUser\Data\**" />
+    <Content Remove="Areas\CompanyUser\Models\**" />
+    <EmbeddedResource Remove="Areas\CompanyManager\Data\**" />
+    <EmbeddedResource Remove="Areas\CompanyManager\Models\**" />
+    <EmbeddedResource Remove="Areas\CompanyUser\Data\**" />
+    <EmbeddedResource Remove="Areas\CompanyUser\Models\**" />
+    <None Remove="Areas\CompanyManager\Data\**" />
+    <None Remove="Areas\CompanyManager\Models\**" />
+    <None Remove="Areas\CompanyUser\Data\**" />
+    <None Remove="Areas\CompanyUser\Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
+    <PackageReference Include="SendGrid" Version="9.28.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HRMSProject.BLL\HRMSProject.BLL.csproj" />
+    <ProjectReference Include="..\HRMSProject.WebAPI\HRMSProject.WebAPI.csproj" />
+  </ItemGroup>
+
+</Project>

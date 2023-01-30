@@ -1,0 +1,138 @@
+﻿@using HRMSProject.Entity.Concrete;
+@using Microsoft.AspNetCore.Identity;
+@{
+    string ByteToImage(byte[] arr)
+    {
+        //Convert byte arry to base64string
+        string imreBase64Data = Convert.ToBase64String(arr);
+        string imgDataURL = string.Format("data:image/png;base64,{0}", imreBase64Data);
+        //Passing image data in viewbag to view
+        return imgDataURL;
+    }
+}
+@inject UserManager<AppUser> _userManager;
+@{
+    var user = _userManager.FindByNameAsync(User.Identity.Name);
+}
+@{
+    <style>
+        .sidebar-link {
+            background-color: #58287F !important;
+        }
+
+            .sidebar-link > * {
+                color: white !important;
+            }
+
+        .sidebar-header {
+            color: white !important;
+        }
+    </style>
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+    <meta name="author" content="AdminKit">
+    <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="shortcut icon" href="~/adminkit/static/img/icons/icon-48x48.png" />
+
+    <link rel="canonical" href="https://demo-basic.adminkit.io/" />
+
+    <title>HRMS Project</title>
+
+    <link href="~/adminkit/static/css/app.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+        <nav id="sidebar" class="sidebar js-sidebar">
+            <div class="sidebar-content js-simplebar" style="background-color:#58287F">
+                <a class="sidebar-brand" asp-area="CompanyManager" asp-controller="Home" asp-action="Index">
+                    <span class="align-middle">HRMS Project</span>
+                </a>
+                <ul class="sidebar-nav">
+                    <li class="sidebar-item ">
+                        <a class="sidebar-link" asp-area="CompanyManager" asp-controller="Home" asp-action="Index">
+                            <i class="align-middle" data-feather="home"></i> <span class="align-middle">Ana Sayfa</span>
+                        </a>
+                        <a class="sidebar-link" asp-area="CompanyManager" asp-controller="CompanyUser" asp-action="Index">
+                            <i class="align-middle" data-feather="users"></i> <span class="align-middle">Şirket Çalışanları</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="main">
+            <nav class="navbar navbar-expand navbar-light navbar-bg">
+                <a class="sidebar-toggle js-sidebar-toggle">
+                    <i class="hamburger align-self-center"></i>
+                </a>
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav navbar-align">
+                        <li class="nav-item dropdown">
+                            <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+                                <i class="align-middle" data-feather="settings"></i>
+                            </a>
+                            <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                                <img src="@ByteToImage(user.Result.Photo)" class="avatar img-fluid rounded me-1" alt="Profil Foto" /> <span class="text-dark">@user.Result.Name @user.Result.SecondName @user.Result.LastName @user.Result.SecondLastName</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" asp-area="CompanyManager" asp-controller="Home" asp-action="Detail"><i class="align-middle me-1" data-feather="user"></i>Profil</a>
+                                <a class="dropdown-item" asp-area="CompanyManager" asp-controller="Password" asp-action="Index"><i class="align-middle me-1" data-feather="shield"></i>Şifre Değiştir</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="LogOut"><i class="align-middle me-1" data-feather="log-out"></i>Çıkış Yap</a>
+
+
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="content">
+                <div class="container-fluid p-0">
+                    @RenderBody()
+                </div>
+            </main>
+
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row text-muted">
+                        <div class="col-6 text-start">
+                            <p class="mb-0">
+                                <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a> - <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>Bootstrap Admin Template</strong></a>								&copy;
+                            </p>
+                        </div>
+                        @*						<div class="col-6 text-end">
+                        <ul class="list-inline">
+                        <li class="list-inline-item">
+                        <a class="text-muted" href="/#" target="_blank">Support</a>
+                        </li>
+                        <li class="list-inline-item">
+                        <a class="text-muted" href="/#" target="_blank">Help Center</a>
+                        </li>
+                        <li class="list-inline-item">
+                        <a class="text-muted" href="/#" target="_blank">Privacy</a>
+                        </li>
+                        <li class="list-inline-item">
+                        <a class="text-muted" href="/#" target="_blank">Terms</a>
+                        </li>
+                        </ul>
+                        </div>*@
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="~/adminkit/static/js/app.js"></script>
+
+</body>
+</html>

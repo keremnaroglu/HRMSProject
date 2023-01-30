@@ -1,0 +1,116 @@
+﻿@model HRMSProject.ViewModels.CompanyVM.CompanyCreate
+
+@{
+	ViewData["Title"] = "Create";
+	string ByteToImage(byte[] arr)
+	{
+		//Convert byte arry to base64string
+		string imreBase64Data = Convert.ToBase64String(arr);
+		string imgDataURL = string.Format("data:image/png;base64,{0}", imreBase64Data);
+		//Passing image data in viewbag to view
+		return imgDataURL;
+	}
+}
+<script>
+	const importData = () => {
+		let input = document.createElement('input');
+		input.type = 'file';
+		input.accept = "image/*"
+		input.onchange = _ => {
+			let files = Array.from(input.files);
+			if (files[0].type.includes("image")) {
+				files[0].stream().getReader().read().then(data => {
+					document.body.querySelector(".profile-photo").value = btoa(String.fromCharCode(...new Uint8Array(data.value)));
+					document.body.querySelector(".profile-image").src = "data:image/png;base64," + btoa(String.fromCharCode(...new Uint8Array(data.value)));
+				});
+			}
+		};
+		input.click();
+	}
+
+</script>
+
+<h4>Şirket Ekle</h4>
+<hr />
+<div class="row">
+	<div class="col-md-4">
+		<form asp-action="Create">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<img src="" alt="Profil Fotoğrafı" class="img-fluid rounded-circle mb-2 profile-image" width="128" height="128"
+					 onclick=importData() />
+				<input asp-for="Photo" class="profile-photo" type="hidden" />
+			</div>
+			<div class="form-group">
+				<label asp-for="CompanyName" class="control-label">Şirket Adı</label>
+				<input asp-for="CompanyName" class="form-control" />
+				<span asp-validation-for="CompanyName" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="CompanyTitle" class="control-label">Şirket Ünvanı</label>
+				<input asp-for="CompanyTitle" class="form-control" />
+				<span asp-validation-for="CompanyTitle" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="MersisNo" class="control-label">Mersis Numarası</label>
+				<input asp-for="MersisNo" class="form-control" />
+				<span asp-validation-for="MersisNo" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="TaxNo" class="control-label">Vergi Numarası</label>
+				<input asp-for="TaxNo" class="form-control" />
+				<span asp-validation-for="TaxNo" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="TaxOffice" class="control-label">Vergi Dairesi</label>
+				<input asp-for="TaxOffice" class="form-control" />
+				<span asp-validation-for="TaxOffice" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Phone" class="control-label">Telefon</label>
+				<input asp-for="Phone" class="form-control" />
+				<span asp-validation-for="Phone" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Adress" class="control-label">Adres</label>
+				<input asp-for="Adress" class="form-control" />
+				<span asp-validation-for="Adress" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="EMail" class="control-label">Email Adresi</label>
+				<input asp-for="EMail" class="form-control" />
+				<span asp-validation-for="EMail" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="EmployeeNumber" class="control-label">Çalışan Sayısı</label>
+				<input asp-for="EmployeeNumber" class="form-control" />
+				<span asp-validation-for="EmployeeNumber" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="FoundationYear" class="control-label">Kuruluş Yılı</label>
+				<input asp-for="FoundationYear" class="form-control" />
+				<span asp-validation-for="FoundationYear" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="ContractStartDate" class="control-label">Sözleşme Başlangıç Tarihi</label>
+				<input asp-for="ContractStartDate" class="form-control" />
+				<span asp-validation-for="ContractStartDate" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="ContractEndDate" class="control-label">Sözleşme Bitiş Tarihi</label>
+				<input asp-for="ContractEndDate" class="form-control" />
+				<span asp-validation-for="ContractEndDate" class="text-danger"></span>
+			</div>
+			<div class="form-group form-check">
+				<label class="form-check-label">
+					<input type="checkbox" asp-for="IsActive"/>
+					<label asp-for="IsActive" class="control-label" style="font-weight:bold">Aktiflik Durumu</label>
+					<span asp-validation-for="IsActive" class="text-danger"></span>
+				</label>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Create" class="btn btn-primary" />
+			</div>
+		</form>
+	</div>
+</div>
